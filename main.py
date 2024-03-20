@@ -2,16 +2,23 @@ from gpiozero import Button
 from signal import pause
 from picamera2 import Picamera2, Preview
 from picamera2.encoders import H264Encoder, Quality
-button = Button(26)
+from libcamera import controls
 
+button = Button(26)
 button.hold_time = .1
 
 closedFlag = True
 
 camera = Picamera2()
-preview_config = camera.create_preview_configuration()
-camera.configure(preview_config)
-encoder = H264Encoder()
+mode = camera.sensor_modes[0]
+config = camera.create_preview_configuration(
+    sensor={'output_size': mode['size'], 'bit_depth':mode['bit_depth']},
+    raw={'fps':30, 'size':(640,640)})
+camera.configure(config)
+camera.set_controls({"AfMode": controls.AfModeEnum.Continuous})
+
+encoder = H264Encoder(10000000000)
+
 camera.start_preview(Preview.QTGL)
 camera.stop_preview()
 
@@ -22,13 +29,12 @@ def closed():
         print("closed\n")
         closedFlag = True
         camera.stop_recording()
-        camera.stop_preview()
+        # camera.stop_preview()
 
-def open():
+def open(): 
     
     print("open\n")
-    camera.start_preview(Preview.QTGL)
-    camera.start_recording(encoder, 'test.h264', quality=Quality.HIGH)
+    camera.start_recording(encoder, 'test.h264')
     
     global closedFlag
     closedFlag = False
