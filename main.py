@@ -11,14 +11,14 @@ class CameraControls:
         self.mode = self.camera.sensor_modes[0]
         self.config = self.camera.create_preview_configuration(
             sensor={'output_size': self.mode['size'], 'bit_depth':self.mode['bit_depth']},
-            raw={'fps':30, 'size':(640,640)})
+            raw={'size':(640,480)})
 
         self.camera.configure(self.config)
         self.camera.set_controls({"AfMode": controls.AfModeEnum.Continuous})
         self.encoder = H264Encoder(10000000000)
         self.camera.start_preview(Preview.QTGL)
         self.camera.stop_preview()
-        print(self.mode)
+        # print(self.mode)
     def stop_recording(self):
         self.camera.stop_recording()
 
