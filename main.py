@@ -19,7 +19,7 @@ class CameraControls:
         self.encoder = H264Encoder(10000000000)
         self.camera.start_preview(Preview.QTGL)
         self.camera.stop_preview()
-
+        print(self.mode)
     def stop_recording(self):
         self.camera.stop_recording()
 
@@ -34,15 +34,14 @@ class CameraControls:
         os.mkdir(output)
         print("output")
         self.camera.start_recording(self.encoder, f"{output}/video.h264")
-
     def start_preview(self):
         self.camera.start_preview(Preview.QTGL)
 
     def stop_preview(self):
         self.camera.stop_preview()
 
-button = Button(26)
-button.hold_time = .1
+button = Button(18)
+button.hold_time = .3
 closedFlag = True
 
 camera = CameraControls()
