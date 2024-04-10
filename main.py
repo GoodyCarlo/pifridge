@@ -44,7 +44,7 @@ class CameraControls:
     def stop_preview(self):
         self.camera.stop_preview()
 
-button = Button(18)
+button = Button(27)
 button.hold_time = .3
 closedFlag = True
 
