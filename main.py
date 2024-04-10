@@ -15,7 +15,6 @@ class CameraControls:
 
         self.camera.configure(self.config)
         self.camera.set_controls({"AfMode": controls.AfModeEnum.Continuous})
-
         self.encoder = H264Encoder(10000000000)
         self.camera.start_preview(Preview.QTGL)
         self.camera.stop_preview()
