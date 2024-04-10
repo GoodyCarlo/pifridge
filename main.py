@@ -14,7 +14,12 @@ class CameraControls:
             raw={'size':(640,480)})
 
         self.camera.configure(self.config)
-        self.camera.set_controls({"AfMode": controls.AfModeEnum.Continuous})
+        
+        #camera additional settings
+        self.camera.set_controls({"AfMode": controls.AfModeEnum.Manual})
+        self.camera.set_controls({"LensPosition" : 1.0})
+        self.camera.set_controls({"FrameRate": 60})
+
         self.encoder = H264Encoder(10000000000)
         self.camera.start_preview(Preview.QTGL)
         self.camera.stop_preview()

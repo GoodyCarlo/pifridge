@@ -17,5 +17,6 @@ camera.set_controls({"FrameRate": 60})
 encoder = H264Encoder(10000000000)
 
 camera.start(show_preview=True)
-camera.start_recording(encoder, f"10secondvideo.h264")
-time.sleep(10)
+# camera.start_recording(encoder, f"10secondvideo.h264")
+while True:
+    pass
